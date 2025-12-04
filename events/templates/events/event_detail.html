@@ -5,5 +5,21 @@
 <p><strong>Venue:</strong> {{ event.venue }}</p>
 <p><strong>Date & Time:</strong> {{ event.date_time }}</p>
 <p><strong>Seats Remaining:</strong> {{ event.remaining_seats }}</p>
-<a href="{% url 'register_event' event.pk %}" class="btn btn-success">Register</a>
+{% if user.is_authenticated %}
+  <form method="post" action="{% url 'register_event' event.pk %}">
+    {% csrf_token %}
+    <label for="tickets">Tickets:</label>
+    <select name="tickets" id="tickets">
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+    </select>
+    <button class="btn btn-success" type="submit">Register</button>
+  </form>
+{% else %}
+    {% comment %} <p>You must <a href="{% url 'login' %}">log in</a> to register for this event.</p> {% endcomment %}
+    <p>You must log in to register for this event.</p>
+{% endif %}
+
 {% endblock %}
