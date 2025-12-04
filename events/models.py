@@ -1,17 +1,19 @@
 from django.db import models
-
-# Create your models here.
+from django.contrib.auth.models import User
 
 class Event(models.Model):
     title = models.CharField(max_length=200)
+    description = models.TextField()
     venue = models.CharField(max_length=200)
     date_time = models.DateTimeField()
-    description = models.TextField()
-    total_seats = models.PositiveIntegerField()
-    booked_seats = models.PositiveIntegerField(default=0)
+    total_seats = models.IntegerField()
+    remaining_seats = models.IntegerField()
 
-    def remaining_seats(self):
-        return self.total_seats - self.booked_seats
+class Registration(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    event = models.ForeignKey(Event, on_delete=models.CASCADE)
+    tickets_booked = models.PositiveIntegerField(default=1)  # number of tickets
+    registered_at = models.DateTimeField(auto_now_add=True)
 
-    def __str__(self):
-        return self.title
+    class Meta:
+        unique_together = ('user', 'event')  # one record per user-event
