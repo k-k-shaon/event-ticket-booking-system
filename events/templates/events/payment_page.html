@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-4">
+  <h2 class="mb-4">Order Summary</h2>
+
+  <div class="card mb-4">
+    <div class="card-body">
+      <p><strong>Event:</strong> {{ event.title }}</p>
+      <p><strong>Date:</strong> {{ event.date_time }}</p>
+      <p><strong>Venue:</strong> {{ event.venue }}</p>
+      <p><strong>Tickets:</strong> {{ tickets_requested }}</p>
+      <p><strong>Total Price:</strong> {{ total_price }} BDT</p>
+    </div>
+  </div>
+
+  <div class="alert alert-info">
+    <p class="mb-1">Pay to one of these numbers:</p>
+    <ul class="mb-0">
+      <li>bKash: <strong>017XXXXXXXX</strong></li>
+      <li>Nagad: <strong>018XXXXXXXX</strong></li>
+      <li>Rocket: <strong>019XXXXXXXX</strong></li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="card-header bg-primary text-white">
+      Payment Details
+    </div>
+    <div class="card-body">
+      <form method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+          <label class="form-label">Name</label>
+          <input type="text" name="name" class="form-control" required>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Student ID</label>
+          <input type="text" name="student_id" class="form-control" required>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Phone Number</label>
+          <input type="text" name="phone_number" class="form-control" required>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Transaction ID</label>
+          <input type="text" name="transaction_id" class="form-control" required>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Payment Method</label>
+          <select name="payment_method" class="form-select" required>
+            <option value="bkash">bKash</option>
+            <option value="nagad">Nagad</option>
+            <option value="rocket">Rocket</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-success">Submit Payment</button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -29,6 +29,9 @@ urlpatterns = [
     path('event/<int:pk>/register/', views.register_event, name='register_event'),
     path('dashboard/', views.user_dashboard, name='user_dashboard'),
     path('admin-report/', views.admin_report, name='admin_report'),
+    path('approve/<int:reg_id>/', views.approve_registration, name='approve_registration'),
+    path('reject/<int:reg_id>/', views.reject_registration, name='reject_registration'),
+    path('event/<int:pk>/payment/', views.payment_page, name='payment_page'),
 
 ]
 
