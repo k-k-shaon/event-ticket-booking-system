@@ -1,0 +1,17 @@
+<h2>Admin Report</h2>
+<table>
+  <tr>
+    <th>User</th>
+    <th>Event</th>
+    <th>Tickets</th>
+    <th>Date</th>
+  </tr>
+  {% for reg in registrations %}
+  <tr>
+    <td>{{ reg.user.username }}</td>
+    <td>{{ reg.event.title }}</td>
+    <td>{{ reg.tickets_booked }}</td>
+    <td>{{ reg.registered_at|date:"M d, Y H:i" }}</td>
+  </tr>
+  {% endfor %}
+</table>

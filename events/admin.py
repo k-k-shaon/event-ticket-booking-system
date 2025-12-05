@@ -8,4 +8,10 @@ class EventAdmin(admin.ModelAdmin):
         return obj.booked_seats()
     booked_seats.short_description = "Booked Seats"
 
+class RegistrationAdmin(admin.ModelAdmin):
+    list_display = ('user', 'event', 'tickets_booked', 'registered_at')
+    list_filter = ('event', 'user')
+    search_fields = ('user__username', 'event__title')
+
 admin.site.register(Event, EventAdmin)
+admin.site.register(Registration, RegistrationAdmin)

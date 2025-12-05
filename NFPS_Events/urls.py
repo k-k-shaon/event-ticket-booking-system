@@ -22,10 +22,13 @@ from django.contrib.auth.views import LogoutView
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('auth/', include('social_django.urls', namespace='social')),
-    path('logout/', LogoutView.as_view(), name='logout'),
+    path('logout/', views.custom_logout, name='logout'),
     path('', views.event_list, name='event_list'),
     path('event/<int:pk>/', views.event_detail, name='event_detail'),
     path('event/<int:pk>/register/', views.register_event, name='register_event'),
+    path('dashboard/', views.user_dashboard, name='user_dashboard'),
+    path('admin-report/', views.admin_report, name='admin_report'),
+
 ]
 
 

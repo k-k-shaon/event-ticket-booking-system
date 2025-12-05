@@ -2,6 +2,8 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from .models import Event, Registration
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import logout
+from django.contrib.admin.views.decorators import staff_member_required
 
 def event_list(request):
     events = Event.objects.all()
@@ -39,3 +41,17 @@ def register_event(request, pk):
     else:
         messages.error(request, "Not enough seats available.")
     return redirect('event_detail', pk=pk)
+
+@login_required
+def user_dashboard(request):
+    registrations = Registration.objects.filter(user=request.user).select_related('event')
+    return render(request, 'events/user_dashboard.html', {'registrations': registrations})
+
+@staff_member_required
+def admin_report(request):
+    registrations = Registration.objects.select_related('event', 'user')
+    return render(request, 'events/admin_report.html', {'registrations': registrations})
+
+def custom_logout(request):
+    logout(request)
+    return redirect('event_list')

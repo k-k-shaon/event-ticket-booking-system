@@ -15,6 +15,9 @@
       <ul class="navbar-nav ms-auto">
         {% if user.is_authenticated %}
           <!-- Show logout if logged in -->
+          <li>
+            <a class="nav-link" href="{% url 'user_dashboard' %}">My Dashboard</a>
+          </li>
           <li class="nav-item">
             <a class="nav-link" href="{% url 'logout' %}">Logout</a>
           </li>

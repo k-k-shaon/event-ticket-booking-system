@@ -1,0 +1,15 @@
+<h2>My Dashboard</h2>
+
+{% if registrations %}
+  <ul>
+    {% for reg in registrations %}
+      <li>
+        <strong>{{ reg.event.title }}</strong>  
+        ({{ reg.event.date_time|date:"M d, Y H:i" }} at {{ reg.event.venue }})  
+        — Tickets booked: {{ reg.tickets_booked }}
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>You haven’t registered for any events yet.</p>
+{% endif %}
