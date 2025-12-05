@@ -13,6 +13,10 @@ def event_detail(request, pk):
     event = get_object_or_404(Event, pk=pk)
     return render(request, 'events/event_detail.html', {'event': event})
 
+def login_success(request):
+    messages.success(request, f"Welcome back, {request.user.username}!")
+    return redirect('event_list')
+
 @login_required
 def register_event(request, pk):
     event = get_object_or_404(Event, pk=pk)
@@ -22,24 +26,32 @@ def register_event(request, pk):
         messages.error(request, "You can book between 1 and 4 tickets.")
         return redirect('event_detail', pk=pk)
 
-    if event.remaining_seats >= tickets_requested:
-        registration, created = Registration.objects.get_or_create(
-            user=request.user,
-            event=event,
-            defaults={'tickets_booked': tickets_requested}
-        )
-        if not created:
-            total_tickets = registration.tickets_booked + tickets_requested
-            if total_tickets > 4:
-                messages.warning(request, "You cannot book more than 4 tickets for this event.")
-            else:
+    registration = Registration.objects.filter(user=request.user, event=event).first()
+
+    if registration:
+        # User already has a booking
+        total_tickets = registration.tickets_booked + tickets_requested
+        if total_tickets > 4:
+            messages.warning(request, "You already booked tickets. Max 4 per user.")
+        else:
+            if event.remaining_seats >= tickets_requested:
                 registration.tickets_booked = total_tickets
                 registration.save()
-                messages.success(request, f"Booked {tickets_requested} more tickets!")
-        else:
-            messages.success(request, f"Successfully booked {tickets_requested} tickets!")
+                messages.success(request, f"Added {tickets_requested} more tickets. Total: {total_tickets}")
+            else:
+                messages.error(request, "Not enough seats available.")
     else:
-        messages.error(request, "Not enough seats available.")
+        # First time booking
+        if event.remaining_seats >= tickets_requested:
+            Registration.objects.create(
+                user=request.user,
+                event=event,
+                tickets_booked=tickets_requested
+            )
+            messages.success(request, f"Successfully booked {tickets_requested} tickets!")
+        else:
+            messages.error(request, "Not enough seats available.")
+
     return redirect('event_detail', pk=pk)
 
 @login_required
@@ -54,4 +66,5 @@ def admin_report(request):
 
 def custom_logout(request):
     logout(request)
+    messages.success(request, "You have been logged out successfully.")
     return redirect('event_list')

@@ -10,7 +10,7 @@
       <p>{{ event.description|truncatechars:100 }}</p>
       <small>{{ event.venue }} | {{ event.date_time }}</small><br>
       <span>Seats Remaining: {{ event.remaining_seats }}</span><br>
-      <a href="{% url 'register_event' event.pk %}" class="btn btn-primary btn-sm">Register</a>
+      {% comment %} <a href="{% url 'register_event' event.pk %}" class="btn btn-primary btn-sm">Register</a> {% endcomment %}
     </div>
   {% empty %}
     <p>No upcoming events.</p>

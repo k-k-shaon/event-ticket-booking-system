@@ -130,7 +130,7 @@ AUTHENTICATION_BACKENDS = (
 )
 
 LOGIN_URL = 'login'
-LOGIN_REDIRECT_URL = 'event_list'
+LOGIN_REDIRECT_URL = 'login_success'
 
 
 from decouple import config

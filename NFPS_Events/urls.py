@@ -22,6 +22,7 @@ from django.contrib.auth.views import LogoutView
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('auth/', include('social_django.urls', namespace='social')),
+    path('login-success/', views.login_success, name='login_success'),
     path('logout/', views.custom_logout, name='logout'),
     path('', views.event_list, name='event_list'),
     path('event/<int:pk>/', views.event_detail, name='event_detail'),
