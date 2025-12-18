@@ -11,6 +11,7 @@
       <th>Tickets</th>
       <th>Total Price</th>
       <th>Status</th>
+      <th>Actions</th> <!-- new column -->
     </tr>
   </thead>
   <tbody>
@@ -30,10 +31,20 @@
             <span class="badge bg-danger">Rejected</span>
           {% endif %}
         </td>
+        <td>
+          {% if reg.status == 'complete' %}
+            <a href="{% url 'download_ticket' reg.id %}" class="btn btn-sm btn-outline-primary">
+              Download ticket
+            </a>
+          {% else %}
+            <span class="text-muted">—</span>
+          {% endif %}
+        </td>
       </tr>
     {% empty %}
-      <tr><td colspan="6" class="text-center text-muted">No registrations yet.</td></tr>
+      <tr><td colspan="7" class="text-center text-muted">No registrations yet.</td></tr>
     {% endfor %}
   </tbody>
 </table>
+
 {% endblock %}

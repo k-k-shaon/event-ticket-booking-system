@@ -14,25 +14,32 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+# urls.py
 from django.contrib import admin
 from django.urls import path, include
-from events import views  
-from django.contrib.auth.views import LogoutView
+from events import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+
+    # Social auth (Google)
     path('auth/', include('social_django.urls', namespace='social')),
+
+    # User routes
+    path('', views.event_list, name='event_list'),
     path('login-success/', views.login_success, name='login_success'),
     path('logout/', views.custom_logout, name='logout'),
-    path('', views.event_list, name='event_list'),
+    path('dashboard/', views.user_dashboard, name='user_dashboard'),
     path('event/<int:pk>/', views.event_detail, name='event_detail'),
     path('event/<int:pk>/register/', views.register_event, name='register_event'),
-    path('dashboard/', views.user_dashboard, name='user_dashboard'),
-    path('admin-report/', views.admin_report, name='admin_report'),
-    path('approve/<int:reg_id>/', views.approve_registration, name='approve_registration'),
-    path('reject/<int:reg_id>/', views.reject_registration, name='reject_registration'),
     path('event/<int:pk>/payment/', views.payment_page, name='payment_page'),
+    path('tickets/<int:reg_id>/download/', views.download_ticket, name='download_ticket'),
 
+    # Admin access (specific first, general last)
+    path('admin_access/login/', views.admin_access_login, name='admin_access_login'),
+    path('admin_access/logout/', views.admin_access_logout, name='admin_access_logout'),
+    path('admin_access/events/new/', views.admin_create_event, name='admin_create_event'),
+    path('admin_access/registrations/<int:reg_id>/approve/', views.admin_approve_registration, name='admin_approve_registration'),
+    path('admin_access/registrations/<int:reg_id>/reject/', views.admin_reject_registration, name='admin_reject_registration'),
+    path('admin_access/', views.admin_dashboard, name='admin_dashboard'),
 ]
-
-
