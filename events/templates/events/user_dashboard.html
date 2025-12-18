@@ -1,50 +1,50 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h2>My Registrations</h2>
-<table class="table table-bordered">
-  <thead>
-    <tr>
-      <th>Event</th>
-      <th>Date</th>
-      <th>Venue</th>
-      <th>Tickets</th>
-      <th>Total Price</th>
-      <th>Status</th>
-      <th>Actions</th> <!-- new column -->
-    </tr>
-  </thead>
-  <tbody>
-    {% for reg in request.user.registration_set.all %}
-      <tr>
-        <td>{{ reg.event.title }}</td>
-        <td>{{ reg.event.date_time }}</td>
-        <td>{{ reg.event.venue }}</td>
-        <td>{{ reg.tickets_booked }}</td>
-        <td>{{ reg.total_price }}</td>
-        <td>
-          {% if reg.status == 'pending' %}
-            <span class="badge bg-warning">Pending</span>
-          {% elif reg.status == 'complete' %}
-            <span class="badge bg-success">Approved</span>
-          {% elif reg.status == 'rejected' %}
-            <span class="badge bg-danger">Rejected</span>
-          {% endif %}
-        </td>
-        <td>
-          {% if reg.status == 'complete' %}
-            <a href="{% url 'download_ticket' reg.id %}" class="btn btn-sm btn-outline-primary">
-              Download ticket
-            </a>
-          {% else %}
-            <span class="text-muted">—</span>
-          {% endif %}
-        </td>
-      </tr>
-    {% empty %}
-      <tr><td colspan="7" class="text-center text-muted">No registrations yet.</td></tr>
-    {% endfor %}
-  </tbody>
-</table>
+<h2 class="text-warning fw-bold mb-4">My Registrations</h2>
 
+<div class="table-responsive">
+  <table class="table table-bordered table-hover">
+    <thead class="table-header">
+      <tr>
+        <th>Event</th>
+        <th>Date</th>
+        <th>Venue</th>
+        <th>Tickets</th>
+        <th>Total Price</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for reg in request.user.registration_set.all %}
+        <tr>
+          <td>{{ reg.event.title }}</td>
+          <td>{{ reg.event.date_time|date:"M d, Y H:i" }}</td>
+          <td>{{ reg.event.venue }}</td>
+          <td>{{ reg.tickets_booked }}</td>
+          <td>{{ reg.total_price }} BDT</td>
+          <td>
+            {% if reg.status == 'pending' %}
+              <span class="badge badge-pending">Pending</span>
+            {% elif reg.status == 'complete' %}
+              <span class="badge badge-approved">Approved</span>
+            {% elif reg.status == 'rejected' %}
+              <span class="badge badge-rejected">Rejected</span>
+            {% endif %}
+          </td>
+          <td>
+            {% if reg.status == 'complete' %}
+              <a href="{% url 'download_ticket' reg.id %}" class="btn btn-sm btn-outline-light">Download Ticket</a>
+            {% else %}
+              <span class="text-muted">—</span>
+            {% endif %}
+          </td>
+        </tr>
+      {% empty %}
+        <tr><td colspan="7" class="text-center text-muted">No registrations yet.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
 {% endblock %}

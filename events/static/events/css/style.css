@@ -1,0 +1,362 @@
+/* ---------- GLOBAL ---------- */
+body {
+  background: linear-gradient(180deg, #0f0f0f, #161616);
+  color: #eaeaea;
+  font-family: "Segoe UI", system-ui, sans-serif;
+}
+
+a {
+  text-decoration: none;
+}
+
+/* ---------- HEADER ---------- */
+.nfps-header {
+  padding: 20px 24px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, rgba(255, 193, 7, 0.15), rgba(255, 87, 34, 0.12));
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.nfps-logo {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  border: 3px solid #ffc107;
+  background: #000;
+}
+
+.nfps-title {
+  font-weight: 700;
+  color: #ffc107;
+  margin-bottom: 2px;
+}
+
+.nfps-subtitle {
+  font-size: 0.9rem;
+  color: #cccccc;
+}
+
+.navbar-logo {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid #ffc107;
+  object-fit: cover;
+}
+
+/* ---------- DASHBOARD TITLES ---------- */
+.dashboard-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #ffc107;
+}
+
+/* ---------- CARD ---------- */
+.card,
+.event-card,
+.event-detail-card,
+.order-summary-card {
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 12px 28px rgba(0,0,0,0.5);
+  background-color: #1c1c1c;
+  color: #eaeaea;
+  transition: all 0.3s ease;
+}
+
+.event-card {
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.event-card:hover,
+.order-summary-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 45px rgba(255,87,34,0.25);
+}
+
+/* ---------- CARD BODY ---------- */
+.event-card-body,
+.event-detail-card {
+  padding: 20px;
+}
+
+.event-title a {
+  color: #ffc107;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.event-title a:hover {
+  color: #ff7043;
+}
+
+.event-desc {
+  color: #bfbfbf;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin: 12px 0;
+}
+
+.event-meta {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 0.85rem;
+  color: #dddddd;
+}
+
+.event-meta li {
+  margin-bottom: 4px;
+}
+
+.event-card-footer {
+  padding: 14px;
+  background: linear-gradient(135deg, rgba(255, 193, 7, 0.15), rgba(255, 87, 34, 0.18));
+}
+
+/* ---------- TABLE ---------- */
+.table {
+  color: #eaeaea;
+}
+
+.table th,
+.table td {
+  vertical-align: middle;
+}
+
+.table-striped > tbody > tr:nth-of-type(odd) {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.table-hover > tbody > tr:hover {
+  background-color: rgba(255, 87, 34, 0.15);
+}
+
+.table-header th {
+  background: linear-gradient(135deg, rgba(255,193,7,0.25), rgba(255,87,34,0.2));
+  color: #ffc107;
+  font-weight: 600;
+  text-align: center;
+}
+
+.table-responsive {
+  overflow-x: auto;
+}
+
+.table tbody tr {
+  background-color: #1b1b1b;
+  transition: all 0.3s ease;
+}
+
+/* ---------- BADGES ---------- */
+.badge-pending {
+  background: #ffc107;
+  color: #000;
+  font-weight: 600;
+}
+
+.badge-approved {
+  background: #28a745;
+  color: #fff;
+  font-weight: 600;
+}
+
+.badge-rejected {
+  background: #dc3545;
+  color: #fff;
+  font-weight: 600;
+}
+
+/* ---------- BUTTONS ---------- */
+.btn-success {
+  background: linear-gradient(135deg, #28a745, #ffc107);
+  border: none;
+  font-weight: 600;
+}
+
+.btn-danger {
+  background: linear-gradient(135deg, #ff5722, #ffc107);
+  border: none;
+  font-weight: 600;
+}
+
+.btn-success:hover {
+  background: linear-gradient(135deg, #ffc107, #28a745);
+}
+
+.btn-danger:hover {
+  background: linear-gradient(135deg, #ffc107, #ff5722);
+}
+
+.btn-outline-light {
+  border: 1px solid #ffc107;
+  color: #ffc107;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.btn-outline-light:hover {
+  background: #ffc107;
+  color: #000;
+}
+
+/* ---------- FORM ---------- */
+form .form-control {
+  background: #1c1c1c;
+  color: #eaeaea;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  padding: 10px 14px;
+  transition: all 0.3s ease;
+}
+
+form .form-control:focus {
+  border-color: #ffc107;
+  box-shadow: 0 0 8px rgba(255,193,7,0.4);
+  background: #1c1c1c;
+  color: #fff;
+}
+
+form .form-label {
+  font-size: 0.95rem;
+}
+
+form .btn-secondary {
+  background: #6c757d;
+  border: none;
+  color: #fff;
+  font-weight: 600;
+}
+
+form .btn-secondary:hover {
+  background: #5a6268;
+}
+
+/* ---------- CREATE EVENT FORM ---------- */
+.create-event-form-wrapper {
+  max-width: 50%;
+  margin: 0 auto 50px auto;
+  padding: 20px;
+}
+
+.create-event-form-wrapper .btn {
+  min-width: 100px;
+}
+
+/* ---------- ADMIN LOGIN FORM ---------- */
+.admin-login-wrapper {
+  max-width: 400px;
+  margin: 80px auto 50px auto;
+  padding: 30px 25px;
+  background-color: #1c1c1c;
+  border-radius: 16px;
+  box-shadow: 0 12px 28px rgba(0,0,0,0.5);
+}
+
+.admin-login-wrapper .form-control {
+  background: #1c1c1c;
+  color: #eaeaea;
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 12px;
+  padding: 10px 14px;
+  transition: all 0.3s ease;
+}
+
+.admin-login-wrapper .form-control:focus {
+  border-color: #ffc107;
+  box-shadow: 0 0 8px rgba(255,193,7,0.4);
+  background: #1c1c1c;
+  color: #fff;
+}
+
+.admin-login-wrapper .form-label {
+  font-size: 0.95rem;
+  color: #eaeaea;
+}
+
+.admin-login-wrapper .btn-primary {
+  background: linear-gradient(135deg, #ff5722, #ffc107);
+  border: none;
+  font-weight: 600;
+}
+
+.admin-login-wrapper .btn-primary:hover {
+  background: linear-gradient(135deg, #ffc107, #ff5722);
+}
+
+/* ---------- EVENT DETAIL CARD ---------- */
+.event-detail-card {
+  background: #1c1c1c;
+  border-radius: 16px;
+  box-shadow: 0 12px 28px rgba(0,0,0,0.5);
+  padding: 24px;
+}
+
+.event-detail-card .event-desc {
+  color: #bfbfbf;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin-bottom: 16px;
+}
+
+.event-detail-card .event-meta li {
+  margin-bottom: 6px;
+  color: #eaeaea;
+  font-size: 0.9rem;
+}
+
+.event-register-form {
+  max-width: 50%;
+}
+
+/* ---------- ORDER SUMMARY CARD ---------- */
+.order-summary-card {
+  background: #1b1b1b;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 12px 28px rgba(0,0,0,0.5);
+  color: #eaeaea;
+  transition: all 0.3s ease;
+}
+
+.order-summary-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 45px rgba(255,87,34,0.25);
+}
+
+.order-summary-header {
+  background: linear-gradient(135deg, rgba(255,193,7,0.2), rgba(255,87,34,0.15));
+  color: #ffc107;
+  font-weight: 700;
+  font-size: 1.1rem;
+  padding: 12px 20px;
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 768px) {
+  .create-event-form-wrapper,
+  .event-register-form {
+    max-width: 90%;
+  }
+}
+
+@media (max-width: 576px) {
+  .nfps-header {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .nfps-logo {
+    width: 56px;
+    height: 56px;
+  }
+
+  .admin-login-wrapper {
+    max-width: 90%;
+    padding: 20px;
+  }
+
+  form .btn {
+    width: 100%;
+  }
+}

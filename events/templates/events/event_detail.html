@@ -1,22 +1,29 @@
 {% extends 'base.html' %}
 {% block content %}
-<h2>{{ event.title }}</h2>
-<p>{{ event.description }}</p>
-<p><strong>Venue:</strong> {{ event.venue }}</p>
-<p><strong>Date & Time:</strong> {{ event.date_time }}</p>
-<p><strong>Seats Remaining:</strong> {{ event.remaining_seats }}</p>
-{% if user.is_authenticated %}
-  <form method="post">
-  {% csrf_token %}
-  <label>Tickets:</label>
-  <input type="number" name="tickets" min="1" max="4" value="1">
-  <button type="submit" class="btn btn-primary">Register</button>
-</form>
+<div class="event-detail-card card p-4 mb-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="text-warning fw-bold">{{ event.title }}</h2>
+        <span class="badge bg-danger">Seats left: {{ event.remaining_seats }}</span>
+    </div>
 
+    <p class="event-desc">{{ event.description }}</p>
 
-{% else %}
-    {% comment %} <p>You must <a href="{% url 'login' %}">log in</a> to register for this event.</p> {% endcomment %}
-    <p>You must log in to register for this event.</p>
-{% endif %}
+    <ul class="event-meta list-unstyled mb-3">
+        <li><strong>Venue:</strong> {{ event.venue }}</li>
+        <li><strong>Date & Time:</strong> {{ event.date_time|date:"M d, Y H:i" }}</li>
+    </ul>
 
+    {% if user.is_authenticated %}
+    <form method="post" class="event-register-form">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label class="form-label">Tickets</label>
+            <input type="number" name="tickets" min="1" max="4" value="1" class="form-control">
+        </div>
+        <button type="submit" class="btn btn-danger">Register</button>
+    </form>
+    {% else %}
+    <p class="text-muted mt-3">You must <a href="{% url 'social:begin' 'google-oauth2' %}" class="text-warning">log in</a> to register for this event.</p>
+    {% endif %}
+</div>
 {% endblock %}

@@ -1,39 +1,60 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block content %}
-<div class="d-flex justify-content-between align-items-center mb-4">
-  <h2 class="text-danger fw-bold">Upcoming Events</h2>
+
+<!-- Page Header -->
+<div class="nfps-header mb-5 d-flex align-items-center gap-3">
+  <img
+    src="{% static 'events/images/nfps_logo.png' %}"
+    alt="NFPS Logo"
+    class="nfps-logo"
+  />
+  <div>
+    <h2 class="nfps-title">Upcoming Events</h2>
+    <p class="nfps-subtitle mb-0">
+      NITER Film & Photographic Society
+    </p>
+  </div>
 </div>
 
-<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+<!-- Events Grid -->
+<div class="row g-4">
   {% for event in events %}
-    <div class="col">
-      <div class="card h-100 shadow-sm border-0">
-        <div class="card-body">
-          <h5 class="card-title text-warning fw-bold">
-            <a href="{% url 'event_detail' event.pk %}" class="text-decoration-none text-warning">
+    <div class="col-12 col-md-6 col-lg-4">
+      <div class="event-card h-100">
+        <div class="event-card-body">
+          <h5 class="event-title">
+            <a href="{% url 'event_detail' event.pk %}">
               {{ event.title }}
             </a>
           </h5>
-          <p class="card-text text-muted">
+
+          <p class="event-desc">
             {{ event.description|truncatechars:100 }}
           </p>
-          <ul class="list-unstyled small">
+
+          <ul class="event-meta">
             <li><strong>Venue:</strong> {{ event.venue }}</li>
             <li><strong>Date:</strong> {{ event.date_time|date:"M d, Y H:i" }}</li>
-            <li><strong>Seats Remaining:</strong> {{ event.remaining_seats }}</li>
+            <li><strong>Seats:</strong> {{ event.remaining_seats }}</li>
           </ul>
         </div>
-        <div class="card-footer bg-light text-center">
-          <a href="{% url 'event_detail' event.pk %}" class="btn btn-danger btn-sm w-100">
+
+        <div class="event-card-footer">
+          <a
+            href="{% url 'event_detail' event.pk %}"
+            class="btn btn-danger w-100"
+          >
             View Details & Register
           </a>
         </div>
       </div>
     </div>
   {% empty %}
-    <div class="col">
+    <div class="col-12">
       <div class="alert alert-info">No upcoming events.</div>
     </div>
   {% endfor %}
 </div>
+
 {% endblock %}
