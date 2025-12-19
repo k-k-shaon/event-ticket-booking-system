@@ -14,14 +14,18 @@
     </ul>
 
     {% if user.is_authenticated %}
-    <form method="post" class="event-register-form">
-        {% csrf_token %}
-        <div class="mb-3">
-            <label class="form-label">Tickets</label>
-            <input type="number" name="tickets" min="1" max="4" value="1" class="form-control">
-        </div>
-        <button type="submit" class="btn btn-danger">Register</button>
-    </form>
+        {% if not event_past %}
+        <form method="post" class="event-register-form">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label class="form-label">Tickets</label>
+                <input type="number" name="tickets" min="1" max="4" value="1" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-danger">Register</button>
+        </form>
+        {% else %}
+        <p class="text-muted mt-3">Registration for this event has ended.</p>
+        {% endif %}
     {% else %}
     <p class="text-muted mt-3">You must <a href="{% url 'social:begin' 'google-oauth2' %}" class="text-warning">log in</a> to register for this event.</p>
     {% endif %}

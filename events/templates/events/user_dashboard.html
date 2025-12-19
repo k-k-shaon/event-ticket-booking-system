@@ -35,7 +35,7 @@
           </td>
           <td>
             {% if reg.status == 'complete' %}
-              <a href="{% url 'download_ticket' reg.id %}" class="btn btn-sm btn-outline-light">Download Ticket</a>
+              <a href="{% url 'download_ticket' reg.id %}" class="btn btn-success">Download Ticket (PNG)</a>
             {% else %}
               <span class="text-muted">—</span>
             {% endif %}

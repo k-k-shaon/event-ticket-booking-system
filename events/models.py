@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+import uuid
 
 class Event(models.Model):
     title = models.CharField(max_length=200)
@@ -44,6 +45,13 @@ class Registration(models.Model):
     total_price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='pending')
     registered_at = models.DateTimeField(auto_now_add=True)
+    tracking_code = models.CharField(max_length=50, unique=True, blank=True, null=True)
+
 
     def __str__(self):
         return f"{self.user.username} - {self.event.title} ({self.status})"
+    
+    def save(self, *args, **kwargs):
+        if not self.tracking_code:
+            self.tracking_code = f"TKT-{self.event.id}-{uuid.uuid4().hex[:6].upper()}"
+        super().save(*args, **kwargs)

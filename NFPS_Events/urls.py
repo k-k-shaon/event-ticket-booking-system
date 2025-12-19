@@ -33,7 +33,7 @@ urlpatterns = [
     path('event/<int:pk>/', views.event_detail, name='event_detail'),
     path('event/<int:pk>/register/', views.register_event, name='register_event'),
     path('event/<int:pk>/payment/', views.payment_page, name='payment_page'),
-    path('tickets/<int:reg_id>/download/', views.download_ticket, name='download_ticket'),
+    path('ticket/<int:reg_id>/download/', views.download_ticket, name='download_ticket'),
 
     # Admin access (specific first, general last)
     path('admin_access/login/', views.admin_access_login, name='admin_access_login'),

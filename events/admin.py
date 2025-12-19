@@ -9,7 +9,7 @@ class EventAdmin(admin.ModelAdmin):
     booked_seats.short_description = "Booked Seats"
 
 class RegistrationAdmin(admin.ModelAdmin):
-    list_display = ('user', 'event', 'tickets_booked', 'registered_at')
+    list_display = ('user', 'event', 'tickets_booked', 'tracking_code', 'status', 'registered_at')
     list_filter = ('event', 'user')
     search_fields = ('user__username', 'event__title')
 

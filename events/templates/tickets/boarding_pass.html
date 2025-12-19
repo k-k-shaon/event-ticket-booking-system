@@ -1,4 +1,4 @@
-<!-- templates/tickets/boarding_pass.html -->
+{% load static %}
 <!doctype html>
 <html>
 <head>
@@ -6,21 +6,57 @@
   <style>
     body { font-family: Arial, sans-serif; }
     .bp {
-      width: 800px; border: 2px solid #222; border-radius: 12px; padding: 20px;
+      width: 800px;
+      border: 2px solid #222;
+      border-radius: 12px;
+      padding: 20px;
       background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
     }
-    .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
-    .title { font-size: 28px; font-weight: bold; letter-spacing: 1px; }
-    .code { font-weight: bold; color: #0d6efd; }
-    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    .logo {
+      width: 80px;
+      height: 80px;
+      object-fit: contain;
+    }
+    .title {
+      font-size: 28px;
+      font-weight: bold;
+      letter-spacing: 1px;
+      flex-grow: 1;
+      text-align: center;
+      color: #222;
+    }
+    .code {
+      font-weight: bold;
+      color: #0d6efd;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 10px;
+    }
     .label { font-size: 12px; color: #666; text-transform: uppercase; margin-bottom: 4px; }
-    .value { font-size: 18px; font-weight: 600; }
-    .footer { margin-top: 16px; font-size: 12px; color: #555; }
+    .value { font-size: 18px; font-weight: 600; color: #222; }
+    .footer {
+      margin-top: 20px;
+      font-size: 12px;
+      color: #555;
+      text-align: center;
+      border-top: 1px solid #ccc;
+      padding-top: 10px;
+    }
   </style>
 </head>
 <body>
   <div class="bp">
     <div class="header">
+      <img src="{% static 'events/images/nfps_logo.png' %}" alt="Logo" class="logo">
       <div class="title">Boarding Pass</div>
       <div class="code">Tracking: {{ tracking_code }}</div>
     </div>
@@ -34,7 +70,7 @@
         <div class="value">{{ event.venue }}</div>
       </div>
       <div>
-        <div class="label">Date & time</div>
+        <div class="label">Date & Time</div>
         <div class="value">{{ event.date_time }}</div>
       </div>
       <div>
@@ -50,7 +86,7 @@
         <div class="value">{{ reg.tickets_booked }}</div>
       </div>
       <div>
-        <div class="label">Payment method</div>
+        <div class="label">Payment Method</div>
         <div class="value">{{ reg.payment_method|title }}</div>
       </div>
       <div>
