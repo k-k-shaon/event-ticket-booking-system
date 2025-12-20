@@ -13,6 +13,7 @@
         <th>Tickets</th>
         <th>Total Price</th>
         <th>Status</th>
+        <th>Tracking Code</th>
         <th>Actions</th>
       </tr>
     </thead>
@@ -33,16 +34,31 @@
               <span class="badge badge-rejected">Rejected</span>
             {% endif %}
           </td>
+
+          <!-- ✅ Tracking Code -->
+          <td>
+            {% if reg.tracking_code %}
+              <code>{{ reg.tracking_code }}</code>
+            {% else %}
+              —
+            {% endif %}
+          </td>
+
+          <!-- ✅ Fixed Download Button -->
           <td>
             {% if reg.status == 'complete' %}
-              <a href="{% url 'download_ticket' reg.id %}" class="btn btn-success">Download Ticket (PNG)</a>
+              <a href="{% url 'ticket_view' reg.tracking_code %}" class="btn btn-success">
+                Download Ticket (PNG)
+              </a>
             {% else %}
               <span class="text-muted">—</span>
             {% endif %}
           </td>
         </tr>
       {% empty %}
-        <tr><td colspan="7" class="text-center text-muted">No registrations yet.</td></tr>
+        <tr>
+          <td colspan="8" class="text-center text-muted">No registrations yet.</td>
+        </tr>
       {% endfor %}
     </tbody>
   </table>

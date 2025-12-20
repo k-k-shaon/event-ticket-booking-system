@@ -21,8 +21,7 @@ a {
   width: 64px;
   height: 64px;
   border-radius: 50%;
-  border: 3px solid #ffc107;
-  background: #000;
+  object-fit: cover;
 }
 
 .nfps-title {
@@ -40,9 +39,18 @@ a {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  border: 2px solid #ffc107;
   object-fit: cover;
 }
+
+/* .navbar-logo {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: none !important; 
+  background: transparent !important; 
+} */
+
 
 /* ---------- DASHBOARD TITLES ---------- */
 .dashboard-title {

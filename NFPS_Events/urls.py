@@ -33,7 +33,7 @@ urlpatterns = [
     path('event/<int:pk>/', views.event_detail, name='event_detail'),
     path('event/<int:pk>/register/', views.register_event, name='register_event'),
     path('event/<int:pk>/payment/', views.payment_page, name='payment_page'),
-    path('ticket/<int:reg_id>/download/', views.download_ticket, name='download_ticket'),
+    path('ticket/<str:tracking_code>/', views.ticket_view, name='ticket_view'),
 
     # Admin access (specific first, general last)
     path('admin_access/login/', views.admin_access_login, name='admin_access_login'),
@@ -42,4 +42,8 @@ urlpatterns = [
     path('admin_access/registrations/<int:reg_id>/approve/', views.admin_approve_registration, name='admin_approve_registration'),
     path('admin_access/registrations/<int:reg_id>/reject/', views.admin_reject_registration, name='admin_reject_registration'),
     path('admin_access/', views.admin_dashboard, name='admin_dashboard'),
+    path('dashboard/event/<int:pk>/edit/', views.admin_edit_event, name='admin_edit_event'),
+    path('dashboard/event/<int:pk>/delete/', views.admin_delete_event, name='admin_delete_event'),
+
+
 ]

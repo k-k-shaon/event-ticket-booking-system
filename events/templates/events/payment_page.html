@@ -19,49 +19,55 @@
     </div>
   </div>
 
-  <div class="alert alert-info">
-    <p class="mb-1">Pay to one of these numbers:</p>
-    <ul class="mb-0">
-      <li>bKash: <strong>017XXXXXXXX</strong></li>
-      <li>Nagad: <strong>018XXXXXXXX</strong></li>
-      <li>Rocket: <strong>019XXXXXXXX</strong></li>
-    </ul>
-  </div>
+  {% if user.is_superuser %}
+    <div class="alert alert-warning">
+      Superusers cannot make payments or register for tickets.
+    </div>
+  {% else %}
+    <div class="alert alert-info">
+      <p class="mb-1">Pay to one of these numbers:</p>
+      <ul class="mb-0">
+        <li>bKash: <strong>017XXXXXXXX</strong></li>
+        <li>Nagad: <strong>018XXXXXXXX</strong></li>
+        <li>Rocket: <strong>019XXXXXXXX</strong></li>
+      </ul>
+    </div>
 
-  <div class="card payment-card mt-4">
-    <div class="card-header bg-danger text-white fw-bold">
-      Payment Details
+    <div class="card payment-card mt-4">
+      <div class="card-header bg-danger text-white fw-bold">
+        Payment Details
+      </div>
+      <div class="card-body">
+        <form method="post" class="payment-form">
+          {% csrf_token %}
+          <div class="mb-3">
+            <label class="form-label">Name</label>
+            <input type="text" name="name" class="form-control" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Student ID</label>
+            <input type="text" name="student_id" class="form-control" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Phone Number</label>
+            <input type="text" name="phone_number" class="form-control" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Transaction ID</label>
+            <input type="text" name="transaction_id" class="form-control" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Payment Method</label>
+            <select name="payment_method" class="form-select" required>
+              <option value="bkash">bKash</option>
+              <option value="nagad">Nagad</option>
+              <option value="rocket">Rocket</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-success">Submit Payment</button>
+        </form>
+      </div>
     </div>
-    <div class="card-body">
-      <form method="post" class="payment-form">
-        {% csrf_token %}
-        <div class="mb-3">
-          <label class="form-label">Name</label>
-          <input type="text" name="name" class="form-control" required>
-        </div>
-        <div class="mb-3">
-          <label class="form-label">Student ID</label>
-          <input type="text" name="student_id" class="form-control" required>
-        </div>
-        <div class="mb-3">
-          <label class="form-label">Phone Number</label>
-          <input type="text" name="phone_number" class="form-control" required>
-        </div>
-        <div class="mb-3">
-          <label class="form-label">Transaction ID</label>
-          <input type="text" name="transaction_id" class="form-control" required>
-        </div>
-        <div class="mb-3">
-          <label class="form-label">Payment Method</label>
-          <select name="payment_method" class="form-select" required>
-            <option value="bkash">bKash</option>
-            <option value="nagad">Nagad</option>
-            <option value="rocket">Rocket</option>
-          </select>
-        </div>
-        <button type="submit" class="btn btn-success">Submit Payment</button>
-      </form>
-    </div>
-  </div>
+  {% endif %}
 </div>
 {% endblock %}

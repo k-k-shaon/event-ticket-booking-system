@@ -1,10 +1,12 @@
 {% load static %}
-<!doctype html>
+<!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   <style>
-    body { font-family: Arial, sans-serif; }
+    body {
+      font-family: Arial, sans-serif;
+    }
     .bp {
       width: 800px;
       border: 2px solid #222;
@@ -21,7 +23,8 @@
     .logo {
       width: 80px;
       height: 80px;
-      object-fit: contain;
+      border-radius: 50%;
+        object-fit: cover;
     }
     .title {
       font-size: 28px;
@@ -41,8 +44,17 @@
       gap: 12px;
       margin-top: 10px;
     }
-    .label { font-size: 12px; color: #666; text-transform: uppercase; margin-bottom: 4px; }
-    .value { font-size: 18px; font-weight: 600; color: #222; }
+    .label {
+      font-size: 12px;
+      color: #666;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+    .value {
+      font-size: 18px;
+      font-weight: 600;
+      color: #222;
+    }
     .footer {
       margin-top: 20px;
       font-size: 12px;
@@ -53,13 +65,17 @@
     }
   </style>
 </head>
+
 <body>
-  <div class="bp">
+
+  <!-- TICKET -->
+  <div class="bp" id="ticket">
     <div class="header">
-      <img src="{% static 'events/images/nfps_logo.png' %}" alt="Logo" class="logo">
+      <img src="{% static 'events/images/nfps_logo_transparent.png' %}" class="logo" />
       <div class="title">Boarding Pass</div>
-      <div class="code">Tracking: {{ tracking_code }}</div>
+      <div class="code">Tracking: {{ reg.tracking_code }}</div>
     </div>
+
     <div class="grid">
       <div>
         <div class="label">Event</div>
@@ -94,9 +110,45 @@
         <div class="value">{{ reg.transaction_id }}</div>
       </div>
     </div>
+
     <div class="footer">
-      Please bring this ticket and a valid ID to enter. Unauthorized duplication is prohibited.
+      Please bring this ticket and a valid ID to enter.
     </div>
   </div>
+
+  <!-- BUTTON -->
+  <div style="margin-top:20px; text-align:center;">
+    <button onclick="downloadTicket()" style="
+      padding:10px 20px;
+      font-size:16px;
+      background:#0d6efd;
+      color:#fff;
+      border:none;
+      border-radius:6px;
+      cursor:pointer;">
+      Download Ticket (PNG)
+    </button>
+  </div>
+
+  <!-- html2canvas FIRST -->
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+
+  <!-- SCRIPT AFTER -->
+  <script>
+    function downloadTicket() {
+      const ticket = document.getElementById('ticket');
+
+      html2canvas(ticket, {
+        scale: 2,
+        useCORS: true
+      }).then(canvas => {
+        const link = document.createElement('a');
+        link.download = '{{ reg.tracking_code }}.png';
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+      });
+    }
+  </script>
+
 </body>
 </html>
