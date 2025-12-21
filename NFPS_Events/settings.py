@@ -145,7 +145,7 @@ LOGIN_REDIRECT_URL = 'login_success'
 
 from decouple import config
 
-SECRET_KEY = config('DJANGO_SECRET_KEY')
+SECRET_KEY = config('DJANGO_SECRET_KEY', default='unsafe-secret-key-for-ci')
 DEBUG = config('DEBUG', default=False, cast=bool)
 
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = config('GOOGLE_OAUTH_CLIENT_ID')
