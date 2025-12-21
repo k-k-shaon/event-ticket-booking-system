@@ -4,8 +4,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from django.db.models import Count, Q
-from .models import Event, Registration
-from .forms import EventForm
+from .models import Event, Registration, PaymentMethod
+from .forms import EventForm, PaymentMethodForm
 
 
 # -------------------- Public/User Views --------------------
@@ -130,11 +130,15 @@ def payment_page(request, pk):
         )
         messages.info(request, f"Submitted {tickets_requested} tickets. Awaiting admin approval.")
         return redirect('user_dashboard')
+    
+    payment_methods = PaymentMethod.objects.filter(is_active=True)
 
     return render(request, 'events/payment_page.html', {
         'event': event,
         'tickets_requested': tickets_requested,
-        'total_price': total_price
+        'total_price': total_price,
+        'payment_methods': payment_methods,
+
     })
 
 @login_required(login_url='/')
@@ -274,3 +278,47 @@ def admin_delete_event(request, pk):
     event.delete()
     messages.warning(request, "Event deleted successfully.")
     return redirect('admin_dashboard')
+
+@login_required(login_url='/')
+def manage_payment_methods(request):
+    if not request.user.is_superuser:
+        messages.error(request, "You are not authorized.")
+        return redirect('event_list')
+
+    methods = PaymentMethod.objects.all()
+
+    if request.method == 'POST':
+        form = PaymentMethodForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Payment method saved.")
+            return redirect('manage_payment_methods')
+    else:
+        form = PaymentMethodForm()
+
+    return render(request, 'admin_access/payment_methods.html', {
+        'methods': methods,
+        'form': form
+    })
+
+@login_required
+def edit_payment_method(request, pk):
+    if not request.user.is_superuser:
+        messages.error(request, "You do not have permission.")
+        return redirect('event_list')
+
+    method = get_object_or_404(PaymentMethod, pk=pk)
+
+    if request.method == 'POST':
+        form = PaymentMethodForm(request.POST, instance=method)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Payment Method updated successfully.")
+            return redirect('manage_payment_methods')  # back to list
+    else:
+        form = PaymentMethodForm(instance=method)
+
+    return render(request, 'admin_access/payment_methods.html', {
+        'form': form,
+        'edit_mode': True
+    })

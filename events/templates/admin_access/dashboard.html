@@ -7,9 +7,15 @@
   class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3"
 >
   <h2 class="dashboard-title">Admin Dashboard</h2>
-  <a href="{% url 'admin_create_event' %}" class="btn btn-danger btn-lg">
+  <div class="adbtns">
+    <a href="{% url 'admin_create_event' %}" class="btn btn-danger btn-lg">
     Create Event
   </a>
+  <a href="{% url 'manage_payment_methods' %}" class="btn btn-danger btn-lg">
+    Manage Payment Methods
+  </a>
+  </div>
+  
 </div>
 
 <!-- Events List -->

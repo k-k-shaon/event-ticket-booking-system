@@ -44,6 +44,7 @@ urlpatterns = [
     path('admin_access/', views.admin_dashboard, name='admin_dashboard'),
     path('dashboard/event/<int:pk>/edit/', views.admin_edit_event, name='admin_edit_event'),
     path('dashboard/event/<int:pk>/delete/', views.admin_delete_event, name='admin_delete_event'),
-
+    path('admin_access/payment-methods/',views.manage_payment_methods,name='manage_payment_methods'),
+    path('admin_access/payment-methods/<int:pk>/edit/', views.edit_payment_method, name='edit_payment_method'),
 
 ]

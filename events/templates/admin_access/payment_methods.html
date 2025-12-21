@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container mt-4">
+
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h3 class="text-warning fw-bold">Manage Payment Methods</h3>
+    <a href="{% url 'admin_dashboard' %}" class="btn btn-outline-light btn-sm">
+      ← Back to Dashboard
+    </a>
+  </div>
+
+  <!-- Add / Update Payment Method -->
+  <div class="card mb-4 shadow-sm">
+    <div class="card-header bg-danger text-white fw-bold">
+      Add / Update Payment Method
+    </div>
+    <div class="card-body">
+      <form method="post">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button type="submit" class="btn btn-success mt-2">
+          Save Payment Method
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Existing Payment Methods -->
+  <div class="card shadow-sm">
+    <div class="card-header bg-dark text-white fw-bold">
+      Active Payment Numbers
+    </div>
+
+    <div class="table-responsive">
+      <table class="table table-striped table-hover mb-0">
+        <thead class="table-dark">
+          <tr>
+            <th>Method</th>
+            <th>Number</th>
+            <th>Status</th>
+            <th class="text-center">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for m in methods %}
+          <tr>
+            <td>{{ m.get_method_display }}</td>
+            <td><strong>{{ m.number }}</strong></td>
+            <td>
+              {% if m.is_active %}
+                <span class="badge bg-success">Active</span>
+              {% else %}
+                <span class="badge bg-secondary">Inactive</span>
+              {% endif %}
+            </td>
+            <td class="text-center">
+              <a href="{% url 'edit_payment_method' m.id %}" class="btn btn-warning btn-sm">
+                Edit
+              </a>
+            </td>
+          </tr>
+          {% empty %}
+          <tr>
+            <td colspan="4" class="text-center text-muted">
+              No payment methods added yet.
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

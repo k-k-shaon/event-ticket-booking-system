@@ -55,3 +55,18 @@ class Registration(models.Model):
         if not self.tracking_code:
             self.tracking_code = f"TKT-{self.event.id}-{uuid.uuid4().hex[:6].upper()}"
         super().save(*args, **kwargs)
+
+
+class PaymentMethod(models.Model):
+    METHOD_CHOICES = [
+        ('bkash', 'bKash'),
+        ('nagad', 'Nagad'),
+        ('rocket', 'Rocket'),
+    ]
+
+    method = models.CharField(max_length=20, choices=METHOD_CHOICES, unique=True)
+    number = models.CharField(max_length=20)
+    is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return f"{self.get_method_display()} - {self.number}"

@@ -1,6 +1,5 @@
-# forms.py
 from django import forms
-from .models import Event
+from .models import Event, PaymentMethod
 
 class EventForm(forms.ModelForm):
     class Meta:
@@ -10,3 +9,8 @@ class EventForm(forms.ModelForm):
             'date_time': forms.DateTimeInput(attrs={'type': 'datetime-local'}),
             'description': forms.Textarea(attrs={'rows': 4}),
         }
+
+class PaymentMethodForm(forms.ModelForm):
+    class Meta:
+        model = PaymentMethod
+        fields = ['method', 'number', 'is_active']
