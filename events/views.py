@@ -7,9 +7,6 @@ from django.db.models import Count, Q
 from .models import Event, Registration
 from .forms import EventForm
 
-# For PNG ticket
-import qrcode
-from io import BytesIO
 
 # -------------------- Public/User Views --------------------
 
