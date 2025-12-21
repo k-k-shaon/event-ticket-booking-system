@@ -1,8 +1,9 @@
-Django>=4.2
-gunicorn
-whitenoise
-psycopg2-binary
-dj-database-url
-python-dotenv
+Django>=5.2
 python-decouple
 social-auth-app-django
+django-crispy-forms
+crispy-bootstrap5
+gunicorn
+whitenoise
+dj-database-url
+psycopg2-binary
