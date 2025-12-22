@@ -64,11 +64,12 @@ import dj_database_url
 
 DATABASES = {
     'default': dj_database_url.config(
-        default='sqlite:///db.sqlite3',  # fallback for local/CI
+        default='sqlite:///db.sqlite3',  # fallback for CI/local
         conn_max_age=600,
-        ssl_require=True
+        ssl_require=False  # only enforce SSL if Postgres is used
     )
 }
+
 
 
 
