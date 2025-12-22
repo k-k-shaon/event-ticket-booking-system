@@ -64,11 +64,12 @@ import dj_database_url
 
 DATABASES = {
     'default': dj_database_url.config(
-        default=config('DATABASE_URL'),
+        default='sqlite:///db.sqlite3',  # fallback for local/CI
         conn_max_age=600,
         ssl_require=True
     )
 }
+
 
 
 # Password validation
